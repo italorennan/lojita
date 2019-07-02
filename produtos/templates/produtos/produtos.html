@@ -1,0 +1,32 @@
+{%extends "estoque/base.html"%}
+{%block title %} Lista de Produtos {%endblock title%}
+
+{%block content %}
+  <h2 style = "color:white; background-color:#363b41; margin:auto;font-weight:bold;">Produtos</h2>
+  <table class="table table-hover table-striped">
+          <thead class="thead-light">
+            <tr style = "font-size:18px">
+              <th scope="col">Nome</th>
+              <th scope="col">Preço</th>
+              <th scope="col">Estoque</th>
+            </tr>
+          </thead>
+          <tbody>
+          {% for produto in produtos%}
+            <tr>
+          <td>
+            <a class = "btn btn-link btn-block"data-toggle="collapse" href="#collapse{{produto.nome}}" role="button" aria-expanded="false" aria-controls="collapseExample" style="color:black; text-align:left">
+              {{produto.nome}}
+            </a>
+            <div class="collapse" id="collapse{{produto.nome}}">
+              {{produto.descricao}}
+            </div>
+          </td>
+          <td>R$ {{produto.preco}}</td>
+          <td>{{produto.estoque}}</td>
+      </tr>
+      {% endfor %}
+      </tbody>
+  </table>
+  <a class="btn btn-outline-success btn-block" href = "http://localhost:8000/produtos/add">Adicionar</a>
+{% endblock content %}

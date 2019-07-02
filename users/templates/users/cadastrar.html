@@ -1,0 +1,37 @@
+{% extends "estoque/base.html" %}
+
+{% load crispy_forms_tags %}
+
+{% block title %} Cadastrar {% endblock title %}
+
+{% block content %}
+<div class = "container" style = "margin: auto; text-align:center">
+<div class="jumbotron" style= "width:25rem; margin:auto; padding: 70px 0; height:52rem; margin-top:40px">
+    <div class="content-section">
+        <form method="POST">
+            <!-- Método de segurança -->
+            {% csrf_token %}
+
+            <fieldset class="form-group" style="margin:auto;width: 20rem;">
+                <legend class="border-bottom mb-4">
+                    Cadastre-se
+                </legend>
+                {{ form|crispy }}
+            </fieldset>
+
+            <div class="form-group">
+                <button class="btn btn-outline-info" type="submit">
+                    Cadastrar
+                </button>
+            </div>
+
+            <div class="border-top pt-3">
+                <small class="text-muted">
+                    Já tem uma conta? <a class="ml-2" href="{% url 'login' %}">Entre</a>
+                </small>
+            </div>
+        </form>
+    </div>
+</div>    
+</div>
+{% endblock content %}

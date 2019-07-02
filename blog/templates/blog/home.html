@@ -1,0 +1,74 @@
+{% extends "estoque/base.html" %}
+
+{% block title%} Home {%endblock title%}
+
+{%block content %}
+<h2 style = "color:white; background-color:#363b41; margin:auto;font-weight:bold;">Produtos</h2>
+<table class="table table-hover table-striped">
+        <thead class="thead-light">
+          <tr style = "font-size:18px">
+            <th scope="col">Nome</th>
+            <th scope="col">Preço</th>
+            <th scope="col">Disponibilidade</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for produto in produtos%}
+          <tr>
+        <td>
+          <a class = "btn btn-link btn-block"data-toggle="collapse" href="#collapse{{produto.nome}}" role="button" aria-expanded="false" aria-controls="collapseExample" style="color:black; text-align:left">
+            {{produto.nome}}
+          </a>
+          <div class="collapse" id="collapse{{produto.nome}}">
+            {{produto.descricao}}
+          </div>
+        </td>
+        <td>R$ {{produto.preco}}</td>
+
+        {% if produto.estoque == 0 %}
+          <td style = "color:red"> <a class = "btn btn-link btn-block"data-toggle="collapse" href="#collapse{{produto.nome}}" role="button" aria-expanded="false" aria-controls="collapseExample" style="color:red; text-align:left">
+            Indisponível
+          </a>
+          <div class="collapse" id="collapse{{produto.nome}}" style = "margin-left: 50px">
+            {{produto.estoque}}
+          </div> 
+        </td>
+        {% elif produto.estoque < 10 %}
+          <td style = "color: orange"> <a class = "btn btn-link btn-block"data-toggle="collapse" href="#collapse{{produto.nome}}" role="button" aria-expanded="false" aria-controls="collapseExample" style="color:orange; text-align:left">
+            Últimas unidades!
+          </a>
+          <div class="collapse" id="collapse{{produto.nome}}" style = "margin-left: 50px">
+            {{produto.estoque}}
+          </div>
+        </td>
+        {% else %}
+          <td style = "color:green">
+            <a class = "btn btn-link btn-block"data-toggle="collapse" href="#collapse{{produto.nome}}" role="button" aria-expanded="false" aria-controls="collapseExample" style="color:green; text-align:left">
+              Disponível
+            </a>
+            <div class="collapse" id="collapse{{produto.nome}}" style = "margin-left: 50px">
+              {{produto.estoque}}
+            </div>
+          </td>
+        {% endif %}
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+    <h2 style = "color:#363b41; margin:auto;font-weight:bold">Comentarios</h2>
+
+    {% for post in posts %}
+
+    <div class="card" style="width: 120rem;">
+      <div class="card-body">
+        <h5 class="card-title">{{post.title}}</h5>
+        <h6 class="card-subtitle mb-2 text-muted">Autor: {{post.author}}</h6>
+        <p class="card-text">{{post.content}}</p>
+      </div>
+    </div>
+    {% endfor %}
+
+    <a class="btn btn-outline-success btn-block" href = "{% url 'post-create' %}">Adicionar Comentário</a>
+
+    {% endblock content %}
+

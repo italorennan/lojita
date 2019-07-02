@@ -1,0 +1,28 @@
+{%extends "estoque/base.html"%}
+{%block title %} Estoque {%endblock title%}
+{% block content %}
+<h2 style = "color:white; background-color:#363b41; margin:auto;font-weight:bold;">Fluxo de Estoque</h2>
+    <table class="table table-hover table-striped">
+            <thead class="thead-light">
+            <tr style = "font-size:18px">
+                <th>Nota Fiscal</th>
+                <th>Funcionário</th>
+                <th>Movimento</th>
+            </tr>
+            </thead>
+        <tbody>
+        {% for estoque in estoques%}
+            <tr>
+                <td><a class = "btn btn-link btn-block" style="color:black; text-align:left" role = "button" href="{% url 'estoque:detalhesestoque' estoque.pk %}">{{estoque.notafiscal}}</a></td>
+                <td>{{estoque.funcionario}}</td>
+                {% if estoque.movimento == "e"%}
+                    <td style="color:green"> Entrada </td>
+                {% else %}
+                    <td style="color:red"> Saída</td>
+                {%endif%}
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <a class="btn btn-outline-success btn-block" href = "http://localhost:8000/estoque/add">Adicionar</a>
+{% endblock content %}
